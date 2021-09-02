@@ -1,0 +1,19 @@
+{
+  "name": "notion-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "tailwind:css": "postcss public/styles/tailwind.css -o public/styles/style.css",
+    "start": "npm run tailwind:css && node server"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@notionhq/client": "^0.3.1",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "tailwindcss": "^2.2.9"
+  }
+}
