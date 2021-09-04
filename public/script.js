@@ -6,6 +6,16 @@ const getMovies = async () => {
   return data;
 };
 
+const updateMovie = async (id, checked) => {
+  await fetch(`http://localhost:8000/movie/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ checked: checked }),
+  });
+};
+
 const showMovies = async () => {
   const movies = await getMovies();
 
@@ -28,7 +38,16 @@ const showMovies = async () => {
     textContainerDiv.className = 'relative z-10 px-4 -mt-8';
 
     const textCardDiv = document.createElement('div');
-    textCardDiv.className = 'p-6 bg-white rounded-lg shadow-xl';
+    textCardDiv.className = 'relative p-6 bg-white rounded-lg shadow-xl';
+
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.checked = movie.watched;
+    checkbox.addEventListener('change', (event) => {
+      updateMovie(movie.id, event.currentTarget.checked);
+    });
+    checkbox.className = 'absolute w-5 h-5 -top-2 right-4';
+    textCardDiv.appendChild(checkbox);
 
     const title = document.createElement('h2');
     title.appendChild(document.createTextNode(movie.name));

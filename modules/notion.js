@@ -17,4 +17,13 @@ module.exports = {
       };
     });
   },
+
+  toggleMovie: async (id, value) => {
+    await notion.pages.update({
+      page_id: id,
+      properties: {
+        Watched: { checkbox: value },
+      },
+    });
+  },
 };
