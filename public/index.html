@@ -8,6 +8,26 @@
     <link rel="stylesheet" href="styles/style.css" />
   </head>
   <body>
+    <header class="flex justify-center">
+      <form
+        action="/movie"
+        method="post"
+        id="create-movie"
+        class="flex p-6 m-6 bg-gray-200 rounded-lg shadow-xl"
+      >
+        <input
+          type="text"
+          name="title"
+          id="movie-title"
+          class="flex-1 p-4 mr-2 border-2 rounded-lg"
+        />
+        <input
+          type="submit"
+          value="Add"
+          class="px-4 text-white bg-green-400 rounded-lg"
+        />
+      </form>
+    </header>
     <div class="flex flex-wrap" id="movie-container"></div>
     <script type="module" src="./script.js"></script>
   </body>

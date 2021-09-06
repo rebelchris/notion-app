@@ -13,7 +13,9 @@ module.exports = {
         name: page.properties.Name.title[0]?.plain_text,
         tags: page.properties.Tags.multi_select.map((tag) => tag.name),
         watched: page.properties.Watched.checkbox,
-        banner: page.properties.Banner.files[0].external.url,
+        banner:
+          page.properties.Banner.files[0]?.external?.url ??
+          'images/placeholder.jpg',
       };
     });
   },
@@ -23,6 +25,25 @@ module.exports = {
       page_id: id,
       properties: {
         Watched: { checkbox: value },
+      },
+    });
+  },
+
+  createMovie: async (title) => {
+    await notion.pages.create({
+      parent: {
+        database_id: databaseId,
+      },
+      properties: {
+        Name: {
+          title: [
+            {
+              text: {
+                content: title,
+              },
+            },
+          ],
+        },
       },
     });
   },

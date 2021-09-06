@@ -1,5 +1,5 @@
 const express = require('express');
-const { getDatabase, toggleMovie } = require('./modules/notion');
+const { getDatabase, toggleMovie, createMovie } = require('./modules/notion');
 
 const port = 8000;
 const app = express();
@@ -14,6 +14,11 @@ app.get('/movies', async (req, res) => {
 
 app.put('/movie/:id', async (req, res) => {
   await toggleMovie(req.params.id, req.body.checked);
+  res.json('done');
+});
+
+app.post('/movie', async (req, res) => {
+  await createMovie(req.body.title);
   res.json('done');
 });
 

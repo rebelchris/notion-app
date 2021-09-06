@@ -1,4 +1,6 @@
 const movieContainer = document.getElementById('movie-container');
+const form = document.getElementById('create-movie');
+const movieTitleField = document.getElementById('movie-title');
 
 const getMovies = async () => {
   const rest = await fetch('http://localhost:8000/movies');
@@ -16,8 +18,20 @@ const updateMovie = async (id, checked) => {
   });
 };
 
+const createMovie = async (title) => {
+  await fetch(`http://localhost:8000/movie/`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ title: movieTitleField.value }),
+  });
+};
+
 const showMovies = async () => {
   const movies = await getMovies();
+
+  movieContainer.innerHTML = '';
 
   movies.forEach((movie) => {
     const movieDiv = document.createElement('div');
@@ -68,3 +82,11 @@ const showMovies = async () => {
 };
 
 showMovies();
+
+form.addEventListener('submit', (event) => {
+  event.preventDefault();
+  createMovie(movieTitleField.value).then((success) => {
+    showMovies();
+  });
+  movieTitleField.value = '';
+});
